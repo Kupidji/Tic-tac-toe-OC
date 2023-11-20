@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\domain">
+      <UniqueIdentifier>{362a59a0-f55f-41a1-86e9-e5fc945e5179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\domain\usecase">
+      <UniqueIdentifier>{d79787fd-5988-40ab-9aef-0ac7dee68d19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\domain\models">
+      <UniqueIdentifier>{a70eacc9-420e-4173-b3a4-4444fc6c5829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\domain\repository">
+      <UniqueIdentifier>{be064808-fd49-4a67-bdf6-d15dfbd74005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\presentation">
+      <UniqueIdentifier>{82261286-641c-43c5-ba76-f593bbbc84d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\data">
+      <UniqueIdentifier>{6ff19cc3-bab1-4cd3-a595-09750d83ffeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\presentation\models">
+      <UniqueIdentifier>{db22efc0-d24b-49f6-a3c0-8dc2bc88cd08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\domain">
+      <UniqueIdentifier>{474f8b3d-ffe9-444b-a7a1-fcc2250b6a4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\domain\common">
+      <UniqueIdentifier>{d5813963-fc73-4569-b72b-5ecb8a5a0873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\data\models">
+      <UniqueIdentifier>{d3c48fca-8d91-40b0-b346-20a6313ee725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\data">
+      <UniqueIdentifier>{0b0bbb32-1b7d-4c6a-80b2-5abced6b62dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\data\config">
+      <UniqueIdentifier>{2f7dcf96-c678-4aef-a123-43b664c17244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\presentation\viewmodels">
+      <UniqueIdentifier>{618cecfb-a230-4fee-bfb8-95ccacc10c78}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="mainScreenDefinitions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="mainScreenUsecases.h">
+      <Filter>Файлы заголовков\domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Исходные файлы\data\models</Filter>
+    </ClInclude>
+    <ClInclude Include="Rgb.h">
+      <Filter>Исходные файлы\data\models</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigStorageRepository.h">
+      <Filter>Исходные файлы\domain\repository</Filter>
+    </ClInclude>
+    <ClInclude Include="GetRandomColor.h">
+      <Filter>Исходные файлы\domain\common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WindowsProject1.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="WindowsProject1.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="RunNotepad.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeBackgroundColor.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigStorage.cpp">
+      <Filter>Исходные файлы\data\config</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeLineColors.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="MainViewmodel.cpp">
+      <Filter>Исходные файлы\presentation\viewmodels</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,5 @@
+n = 3
+width = 1010
+height = 649
+color_line = 207 0 190
+color_field = 76 252 16
