@@ -4,8 +4,7 @@
 #include <windowsx.h>
 #include <stdio.h>
 #include "mainScreenUsecases.h"
-#include "ConfigStorageRepository.h"
-#include "getRandomColor.h";
+#include "MainViewmodel.h"
 
 WNDCLASS NewWindowClass(
 	HBRUSH backgrondColor,
@@ -16,3 +15,7 @@ WNDCLASS NewWindowClass(
 	WNDPROC procedure
 );
 LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
+
+void drawTic(int x, int y, HDC hdc, int gridWidth, int gridHeight); 
+void drawTac(int x, int y, HDC hdc, int gridWidth, int gridHeight);
+void getSizeOfGrid(RECT clientRect, int& gridWidth, int& gridHeight, int n);

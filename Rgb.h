@@ -1,5 +1,5 @@
 #pragma once
 
 struct Rgb {
-	double r, g, b;
+	int r, g, b;
 };

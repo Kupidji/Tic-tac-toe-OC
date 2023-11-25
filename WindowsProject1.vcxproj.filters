@@ -66,9 +66,6 @@
     <ClInclude Include="mainScreenDefinitions.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="mainScreenUsecases.h">
-      <Filter>Файлы заголовков\domain</Filter>
-    </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>Исходные файлы\data\models</Filter>
     </ClInclude>
@@ -80,6 +77,18 @@
     </ClInclude>
     <ClInclude Include="GetRandomColor.h">
       <Filter>Исходные файлы\domain\common</Filter>
+    </ClInclude>
+    <ClInclude Include="MainViewmodel.h">
+      <Filter>Исходные файлы\presentation\viewmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadDataByTxt.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveDataByTxt.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
+    <ClInclude Include="mainScreenUsecases.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -99,20 +108,17 @@
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="RunNotepad.cpp">
-      <Filter>Исходные файлы\domain\usecase</Filter>
-    </ClCompile>
-    <ClCompile Include="ChangeBackgroundColor.cpp">
-      <Filter>Исходные файлы\domain\usecase</Filter>
-    </ClCompile>
     <ClCompile Include="ConfigStorage.cpp">
       <Filter>Исходные файлы\data\config</Filter>
     </ClCompile>
-    <ClCompile Include="ChangeLineColors.cpp">
-      <Filter>Исходные файлы\domain\usecase</Filter>
-    </ClCompile>
     <ClCompile Include="MainViewmodel.cpp">
       <Filter>Исходные файлы\presentation\viewmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadDataByTxt.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveDataByTxt.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

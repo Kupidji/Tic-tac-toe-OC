@@ -131,19 +131,21 @@
     <ClInclude Include="ConfigStorageRepository.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GetRandomColor.h" />
+    <ClInclude Include="LoadDataByTxt.h" />
     <ClInclude Include="mainScreenUsecases.h" />
+    <ClInclude Include="MainViewmodel.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rgb.h" />
+    <ClInclude Include="SaveDataByTxt.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="mainScreenDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChangeBackgroundColor.cpp" />
-    <ClCompile Include="ChangeLineColors.cpp" />
     <ClCompile Include="ConfigStorage.cpp" />
+    <ClCompile Include="LoadDataByTxt.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainViewmodel.cpp" />
-    <ClCompile Include="RunNotepad.cpp" />
+    <ClCompile Include="SaveDataByTxt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc" />

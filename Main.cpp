@@ -1,40 +1,83 @@
 ﻿#include "mainScreenDefinitions.h"
-#include "iostream";
+#include <iostream>
 
-static string link = "C:\\Users\\kiril\\source\\repos\\WindowsProject1\\config.txt";
 static Config cfg;
+
+auto APP_NAME = L"Крестики-нолики";
 
 // Главное окно
 HWND hWndMain;
 WNDCLASS softwareMainClass;
 
-//int nFromUser = 3;
-//cout << "Введите n";
-//cin >> nFromUser;
-
+static int** grid;
+static int n;
+HANDLE hMapFile;
+// ID для сообщения broadcast
+UINT WM_FIELD_CHANGED;
+int* pData;
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int nCmdShow) {
-    loadConfig(cfg, link);
+    resetData(cfg);
+    n = cfg.n;
+
+    WM_FIELD_CHANGED = RegisterWindowMessage(L"WM_FIELD_CHANGED");
+
+    hMapFile = CreateFileMapping(
+        INVALID_HANDLE_VALUE,   // Идентификатор файла
+        NULL,                   // Защита
+        PAGE_READWRITE,         // Доступ
+        0,                      // Размер файла (0 - динамический)
+        sizeof(int) * n * n,    // Размер fileMapping
+        L"MyMappingObject");    // Имя fileMapping
+
+    if (hMapFile == NULL) {
+        cout << "Не удалось создать File Mapping!" << std::endl;
+        return 1;
+    }
+
+    pData = (int*)MapViewOfFile(hMapFile, FILE_MAP_WRITE, 0, 0, sizeof(grid) * n * n);
+
+    if (pData == NULL) {
+        std::cout << "Не удалось получить указатель на представленную область памяти!" << std::endl;
+        CloseHandle(hMapFile);
+        return 1;
+    }
+
+    grid = new int* [n];
+    for (int i = 0; i < n; i++) {
+        grid[i] = new int[n];
+        memset(grid[i], 0, sizeof(int) * n);
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            pData[i * n + j] = grid[i][j];
+        }
+    }
 
     softwareMainClass =
         NewWindowClass((HBRUSH)CreateSolidBrush(RGB(cfg.color_field.r, cfg.color_field.g, cfg.color_field.b)), LoadCursor(NULL, IDC_ARROW), hInst, LoadIcon(hInst, MAKEINTRESOURCE(IDI_WINDOWSPROJECT1)), L"MainWndClass", SoftwareMainProcedure);
 
     if (!RegisterClassW(&softwareMainClass)) { return -1; }
 
-    MSG softwareMainMessage = { 0 };
-
     hWndMain =
-        CreateWindow(L"MainWndClass", L"First app", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 100, 100, cfg.width, cfg.height, NULL, NULL, NULL, NULL);
+        CreateWindow(L"MainWndClass", APP_NAME, WS_OVERLAPPEDWINDOW | WS_VISIBLE, 100, 100, cfg.width, cfg.height, NULL, NULL, NULL, NULL);
 
     // Показать и обновить главное окно
     ShowWindow(hWndMain, nCmdShow);
     UpdateWindow(hWndMain);
+    
+    MSG softwareMainMessage = { 0 };
 
     while (GetMessage(&softwareMainMessage, NULL, NULL, NULL)) {
         TranslateMessage(&softwareMainMessage);
         DispatchMessage(&softwareMainMessage);
     }
 
+    UnmapViewOfFile(pData);
+    CloseHandle(hMapFile);
+
+    DestroyWindow(hWndMain);
     return 0;
 }
 
@@ -58,33 +101,41 @@ WNDCLASS NewWindowClass(
     return newWindowClass;
 }
 
-
 LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
-
+    
     static Rgb linesColor = { cfg.color_line.r, cfg.color_line.g, cfg.color_line.b };
     PAINTSTRUCT ps;
-    static int n = cfg.n;
-    static int** grid;
+    
+    if (msg == WM_FIELD_CHANGED) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                grid[i][j] = pData[i * n + j];
+            }
+        }
+        InvalidateRect(hWnd, NULL, TRUE);
+    }
 
     switch (msg) {
+
     case WM_CREATE: {
-        grid = new int* [n];
-        for (int i = 0; i < n; i++) {
-            grid[i] = new int[n];
-            memset(grid[i], 0, sizeof(int) * n);
-        }
+        //initGrid(grid, n);
         break;
     }
+    
+
 
     case WM_PAINT: {
         HDC hdc = BeginPaint(hWnd, &ps);
         RECT clientRect;
         GetClientRect(hWnd, &clientRect);
         HBRUSH hBrush = CreateSolidBrush(RGB(linesColor.r, linesColor.g, linesColor.b));
-        cfg.color_line = linesColor;
-        int gridWidth = clientRect.right / n;
-        int gridHeight = clientRect.bottom / n;
 
+        int gridWidth = 0;
+        int gridHeight = 0;
+
+        getSizeOfGrid(clientRect, gridWidth, gridHeight, n);
+
+        //Отрисовка сетки, крестиков и ноликов
         for (int x = 0; x < clientRect.right; x += gridWidth) {
             for (int y = 0; y < clientRect.bottom; y += gridHeight) {
                 int row = y / gridHeight;
@@ -100,18 +151,22 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
                 RECT cellRect = { x, y, x + gridWidth, y + gridHeight };
                 FrameRect(hdc, &cellRect, hBrush);
 
+                //Крестики
                 if (grid[row][col] == 1) {
-                    MoveToEx(hdc, x, y, NULL);
-                    LineTo(hdc, x + gridWidth, y + gridHeight);
-                    MoveToEx(hdc, x + gridWidth, y, NULL);
-                    LineTo(hdc, x, y + gridHeight);
+                    drawTic(x, y, hdc, gridWidth, gridHeight);
                 }
+                //Нолики
                 else if (grid[row][col] == 2) {
-                    Ellipse(hdc, x, y, x + gridWidth, y + gridHeight);
+                    drawTac(x, y, hdc, gridWidth, gridHeight);
                 }
             }
         }
         EndPaint(hWnd, &ps);
+
+        //сохранение цвета линий в конфиг
+        cfg.color_line = linesColor;
+        setCurrentData(cfg);
+
         DeleteObject(hBrush);
         break;
     }
@@ -120,43 +175,48 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
         InvalidateRect(hWnd, NULL, TRUE);
         break;
     }
-
+    
+    //Поставить крестик 
     case WM_LBUTTONDOWN: {
         int xPos = GET_X_LPARAM(lp);
         int yPos = GET_Y_LPARAM(lp);
-
+        int gridWidth = 0;
+        int gridHeight = 0;
         RECT clientRect;
         GetClientRect(hWnd, &clientRect);
 
-        int gridWidth = clientRect.right / n;
-        int gridHeight = clientRect.bottom / n;
+        getSizeOfGrid(clientRect, gridWidth, gridHeight, n);
 
         int row = yPos / gridHeight;
         int col = xPos / gridWidth;
 
         if (grid[row][col] == 0) {
-            grid[row][col] = 1;
+            pData[row * n + col] = 1;
+            //grid[row][col] = 1;
+            SendMessage(HWND_BROADCAST, WM_FIELD_CHANGED, 0, 0);
             InvalidateRect(hWnd, NULL, TRUE);
         }
-
         break;
     }
-
+    
+    //Поставить нолик
     case WM_RBUTTONDOWN: {
         int xPos = GET_X_LPARAM(lp);
         int yPos = GET_Y_LPARAM(lp);
-
+        int gridWidth = 0;
+        int gridHeight = 0;
         RECT clientRect;
         GetClientRect(hWnd, &clientRect);
 
-        int gridWidth = clientRect.right / n;
-        int gridHeight = clientRect.bottom / n;
+        getSizeOfGrid(clientRect, gridWidth, gridHeight, n);
 
         int row = yPos / gridHeight;
         int col = xPos / gridWidth;
 
         if (grid[row][col] == 0) {
-            grid[row][col] = 2;
+            pData[row * n + col] = 2;
+            //grid[row][col] = 2;            
+            SendMessage(HWND_BROADCAST, WM_FIELD_CHANGED, 0, 0);
             InvalidateRect(hWnd, NULL, TRUE);
         }
 
@@ -165,9 +225,7 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
 
     case WM_KEYDOWN: {
         if (wp == VK_RETURN) {
-            Rgb colorRgb = { getRandomColorr(), getRandomColorr(), getRandomColorr() };
-            SetClassLongPtr(hWnd, GCLP_HBRBACKGROUND, (LONG_PTR)(HBRUSH)CreateSolidBrush(RGB(colorRgb.r, colorRgb.g, colorRgb.b)));
-            cfg.color_field = colorRgb;
+            changeBackgroundColor(hWnd, cfg);
             InvalidateRect(hWnd, NULL, TRUE);
         }
         else if (wp == VK_ESCAPE) {
@@ -192,15 +250,7 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
     case WM_DESTROY: {
         RECT clientRect;
         GetWindowRect(hWnd, &clientRect);
-        cfg.n = n;
-        cfg.width = clientRect.right - clientRect.left;
-        cfg.height = clientRect.bottom - clientRect.top;
-        saveConfig(cfg, link);
-
-        for (int i = 0; i < n; i++) {
-            delete[] grid[i];
-        }
-        delete[] grid;
+        saveData(clientRect);
 
         PostQuitMessage(0);
         return 0; 
@@ -210,7 +260,25 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
         return DefWindowProc(hWnd, msg, wp, lp);
     }
     
-    
     DeleteObject(hWndMain);
     return 0;
+}
+
+
+void drawTic(int x, int y, HDC hdc, int gridWidth, int gridHeight) {
+    MoveToEx(hdc, x, y, NULL);
+    LineTo(hdc, x + gridWidth, y + gridHeight);
+    MoveToEx(hdc, x + gridWidth, y, NULL);
+    LineTo(hdc, x, y + gridHeight);
+}
+
+void drawTac(int x, int y, HDC hdc, int gridWidth, int gridHeight) {
+    int right = x + gridWidth;
+    int bottom = y + gridHeight;
+    Ellipse(hdc, x, y, right, bottom);
+}
+
+void getSizeOfGrid(RECT clientRect, int& gridWidth, int& gridHeight, int n) {
+    gridWidth = clientRect.right / n;
+    gridHeight = clientRect.bottom / n;
 }

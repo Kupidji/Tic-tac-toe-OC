@@ -5,5 +5,6 @@
 
 using namespace std;
 
-void saveConfig(Config cfg, string link);
-void loadConfig(Config& cfg, string link);
+void saveConfigTxt(Config cfg, string link);
+void loadConfigTxt(Config& cfg, string link);
+void loadConfigMapping(Config& cfg, string link);

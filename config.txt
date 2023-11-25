@@ -1,5 +1,5 @@
-n = 3
-width = 1010
-height = 649
-color_line = 207 0 190
-color_field = 76 252 16
+N = 3
+WIDTH = 912
+HEIGHT = 596
+LINE_COLOR = 68 45 140
+FIELD_COLOR = 41 107 214

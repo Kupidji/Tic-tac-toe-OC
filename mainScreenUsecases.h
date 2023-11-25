@@ -1,8 +1,5 @@
-#include <windows.h>
-#include "Rgb.h";
+//Текстовый файл
+#include "LoadDataByTxt.h";
+#include "SaveDataByTxt.h";
 
-void runNotepad();
-void changeBackgroundColor(HWND hWnd);
-void changeLineColors(Rgb& rgb);
-void setTic();
-void setTac();
+//

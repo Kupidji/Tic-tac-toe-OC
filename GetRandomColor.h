@@ -1,5 +1,5 @@
-#include <windows.h>
+#include "windows.h";
 
-int getRandomColorr() {
+int getRandomColor() {
 	return rand() % 255;
 }
