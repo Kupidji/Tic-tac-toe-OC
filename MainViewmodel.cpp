@@ -24,6 +24,9 @@ void deleteGrid(int**& grid, int n) {
 
 void resetData(Config &cfg) {
 	loadDataBytTxtExecute(cfg, LINK);
+	//loadDataFileMappingExecute(cfg, LINK);
+	//loadDataWinApiExecute(cfg, LINK);
+
 	currentConfig = cfg;
 }
 
@@ -34,14 +37,17 @@ void setCurrentData(Config cfg) {
 void saveData(RECT clientRect) {
 	currentConfig.width = clientRect.right - clientRect.left;
 	currentConfig.height = clientRect.bottom - clientRect.top;
+
 	saveDataBytTxtExecute(currentConfig, LINK);
+	//saveDataFileMapping(currentConfig, LINK);
+	//saveDataWinApiExecute(currentConfig, LINK);
 }
 
 void changeBackgroundColor(HWND hWnd, Config &cfg) {
 	Rgb colorRgb = { getRandomColor(), getRandomColor(), getRandomColor() };
 	SetClassLongPtr(hWnd, GCLP_HBRBACKGROUND, (LONG_PTR)(HBRUSH)CreateSolidBrush(RGB(colorRgb.r, colorRgb.g, colorRgb.b)));
 	cfg.color_field = colorRgb;
-	currentConfig.color_field = colorRgb;;
+	currentConfig.color_field = colorRgb;
 }
 
 void changeLineColors(Rgb& rgb) {

@@ -90,6 +90,21 @@
     <ClInclude Include="mainScreenUsecases.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="LoadDataFileMapping.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadDataWinApi.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
+    <ClInclude Include="StringToLpcwstr.h">
+      <Filter>Исходные файлы\domain\common</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveDataWinApi.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveDataFileMapping.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -118,6 +133,24 @@
       <Filter>Исходные файлы\domain\usecase</Filter>
     </ClCompile>
     <ClCompile Include="SaveDataByTxt.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadDataFileMapping.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadDataWinApi.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveDataWinApi.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="GetRandomColor.cpp">
+      <Filter>Исходные файлы\domain\common</Filter>
+    </ClCompile>
+    <ClCompile Include="StringToLpcwstr.cpp">
+      <Filter>Исходные файлы\domain\common</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveDataFileMapping.cpp">
       <Filter>Исходные файлы\domain\usecase</Filter>
     </ClCompile>
   </ItemGroup>

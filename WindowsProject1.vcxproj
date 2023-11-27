@@ -132,20 +132,31 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GetRandomColor.h" />
     <ClInclude Include="LoadDataByTxt.h" />
+    <ClInclude Include="LoadDataFileMapping.h" />
+    <ClInclude Include="LoadDataWinApi.h" />
     <ClInclude Include="mainScreenUsecases.h" />
     <ClInclude Include="MainViewmodel.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rgb.h" />
     <ClInclude Include="SaveDataByTxt.h" />
+    <ClInclude Include="SaveDataFileMapping.h" />
+    <ClInclude Include="SaveDataWinApi.h" />
+    <ClInclude Include="StringToLpcwstr.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="mainScreenDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConfigStorage.cpp" />
+    <ClCompile Include="GetRandomColor.cpp" />
     <ClCompile Include="LoadDataByTxt.cpp" />
+    <ClCompile Include="LoadDataFileMapping.cpp" />
+    <ClCompile Include="LoadDataWinApi.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainViewmodel.cpp" />
     <ClCompile Include="SaveDataByTxt.cpp" />
+    <ClCompile Include="SaveDataFileMapping.cpp" />
+    <ClCompile Include="SaveDataWinApi.cpp" />
+    <ClCompile Include="StringToLpcwstr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc" />
