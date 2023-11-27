@@ -1,5 +1,4 @@
+#pragma once
 #include "windows.h";
 
-int getRandomColor() {
-	return rand() % 255;
-}
+int getRandomColor();

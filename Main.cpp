@@ -1,5 +1,7 @@
 ﻿#include "mainScreenDefinitions.h"
 #include <iostream>
+#include "StringToLpcwstr.h";
+
 
 static Config cfg;
 
@@ -23,7 +25,6 @@ UINT WM_FIELD_CHANGED;
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int nCmdShow) {
     resetData(cfg);
     n = cfg.n;
-
     WM_FIELD_CHANGED = RegisterWindowMessage(L"WM_FIELD_CHANGED");
 
     hMapFile = CreateFileMapping(
@@ -104,13 +105,11 @@ WNDCLASS NewWindowClass(
 }
 
 
-LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {
-    
+LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) {  
     static Rgb linesColor = { cfg.color_line.r, cfg.color_line.g, cfg.color_line.b };
     PAINTSTRUCT ps;
     
     if (msg == WM_FIELD_CHANGED) {
-        //initGrid(grid, n);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 grid[i][j] = pData[i * n + j];
