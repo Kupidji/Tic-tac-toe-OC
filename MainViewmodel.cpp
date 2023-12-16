@@ -1,7 +1,6 @@
 #include "MainViewmodel.h"
 
 #include "mainScreenUsecases.h";
-#include "GetRandomColor.h";
 #include <tchar.h>
 
 CONST string LINK = "C:\\Users\\kiril\\source\\repos\\WindowsProject1\\config.txt";
@@ -43,39 +42,48 @@ void saveData(RECT clientRect) {
 	//saveDataWinApiExecute(currentConfig, LINK);
 }
 
-void changeBackgroundColor(HWND hWnd, Config &cfg) {
-	Rgb colorRgb = { getRandomColor(), getRandomColor(), getRandomColor() };
-	SetClassLongPtr(hWnd, GCLP_HBRBACKGROUND, (LONG_PTR)(HBRUSH)CreateSolidBrush(RGB(colorRgb.r, colorRgb.g, colorRgb.b)));
-	cfg.color_field = colorRgb;
-	currentConfig.color_field = colorRgb;
-}
-
-void changeLineColors(Rgb& rgb) {
-	if (rgb.r == 255) {
-		rgb.r = 0;
-	}
-	else {
-		rgb.r++;
-	}
-
-	if (rgb.g == 255) {
-		rgb.g = 0;
-	}
-	else {
-		rgb.g += 5;
-	}
-
-	if (rgb.b >= 255) {
-		rgb.b = 0;
-	}
-	else {
-		rgb.b += 10;
-	}
-}
-
 void runNotepad() {
 	STARTUPINFO sInfo;
 	PROCESS_INFORMATION pInfo;
 	ZeroMemory(&sInfo, sizeof(STARTUPINFO));
 	CreateProcess(_T("C:\\Windows\\Notepad.exe"), NULL, NULL, NULL, FALSE, 0, NULL, NULL, &sInfo, &pInfo);
+}
+
+void checkFieldToWin(int** array, int n, int countOfMoves, HANDLE gameoverMutex) {
+    if (checkDiagonal(array, 1, n) || checkLine(array, 1, n)) {
+        if (WaitForSingleObject(gameoverMutex, 0) == WAIT_TIMEOUT) {
+            PostQuitMessage(0);
+            return;
+        }
+
+        MessageBox(NULL, _T("Игра закончилась победой крестиков!"), _T("TickTackToe"),
+            MB_OK | MB_SETFOREGROUND);
+
+        PostQuitMessage(0);
+    }
+
+    if (checkDiagonal(array, 2, n) || checkLine(array, 2, n)) {
+        if (WaitForSingleObject(gameoverMutex, 0) == WAIT_TIMEOUT) {
+            PostQuitMessage(0);
+            return;
+        }
+
+        MessageBox(NULL, _T("Игра закончилась победой ноликов!"), _T("TickTackToe"),
+            MB_OK | MB_SETFOREGROUND);
+
+        PostQuitMessage(0);
+    }
+
+    if (countOfMoves >= (n * n)) {
+        if (WaitForSingleObject(gameoverMutex, 0) == WAIT_TIMEOUT) {
+            PostQuitMessage(0);
+            return;
+        }
+
+        MessageBox(NULL, _T("Игра закончилась ничьёй!"), _T("TickTackToe"),
+            MB_OK | MB_SETFOREGROUND);
+
+        PostQuitMessage(0);
+    }
+
 }
