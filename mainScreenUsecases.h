@@ -1,4 +1,8 @@
 #pragma once
+//gameLogic
+#include "CheckDiagonal.h";
+#include "CheckLine.h";
+
 //Streams
 #include "SaveDataByTxt.h";
 #include "LoadDataByTxt.h";

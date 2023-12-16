@@ -105,6 +105,12 @@
     <ClInclude Include="SaveDataFileMapping.h">
       <Filter>Исходные файлы\domain\usecase</Filter>
     </ClInclude>
+    <ClInclude Include="CheckDiagonal.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckLine.h">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsProject1.rc">
@@ -151,6 +157,12 @@
       <Filter>Исходные файлы\domain\common</Filter>
     </ClCompile>
     <ClCompile Include="SaveDataFileMapping.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckDiagonal.cpp">
+      <Filter>Исходные файлы\domain\usecase</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckLine.cpp">
       <Filter>Исходные файлы\domain\usecase</Filter>
     </ClCompile>
   </ItemGroup>

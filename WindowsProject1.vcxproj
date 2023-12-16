@@ -102,7 +102,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CheckDiagonal.h" />
+    <ClInclude Include="CheckLine.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigStorageRepository.h" />
     <ClInclude Include="framework.h" />
@@ -146,6 +148,8 @@
     <ClInclude Include="mainScreenDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CheckDiagonal.cpp" />
+    <ClCompile Include="CheckLine.cpp" />
     <ClCompile Include="ConfigStorage.cpp" />
     <ClCompile Include="GetRandomColor.cpp" />
     <ClCompile Include="LoadDataByTxt.cpp" />
